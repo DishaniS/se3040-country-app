@@ -1,15 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import CountryList from "./components/CountryList";
+import CountryDetail from "./pages/CountryDetail";
 
 function App() {
   return (
-    <div className="text-3xl font-bold text-center text-blue-600 mt-10">
-      🌍 Hello SE3040 – Tailwind is Working!
+    <div className="min-h-screen bg-gray-100">
+      <h1 className="text-4xl font-bold text-center py-6 text-blue-600">
+        🌍 Country Explorer
+      </h1>
+
+      <Routes>
+        <Route path="/" element={<CountryList />} />
+        <Route path="/country/:code" element={<CountryDetail />} />
+      </Routes>
     </div>
   );
 }
 
 export default App;
-
