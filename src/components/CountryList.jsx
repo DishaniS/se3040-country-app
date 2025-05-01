@@ -8,7 +8,6 @@ const CountryList = () => {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load all countries on initial render
   useEffect(() => {
     getAllCountries()
       .then((data) => {
@@ -21,7 +20,6 @@ const CountryList = () => {
       });
   }, []);
 
-  // Handle search by name
   const handleSearch = (query) => {
     setLoading(true);
     searchByName(query)
@@ -36,7 +34,6 @@ const CountryList = () => {
       });
   };
 
-  // Handle filter by region
   const handleRegionSelect = (region) => {
     setLoading(true);
     filterByRegion(region)
@@ -61,30 +58,27 @@ const CountryList = () => {
           Loading countries...
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 p-4">
           {countries.length === 0 ? (
             <p className="text-center col-span-full text-red-500 font-semibold">
               No countries found
             </p>
           ) : (
             countries.map((country) => (
-              <Link to={`/country/${country.cca3}`} key={country.cca3}>
-                <div className="border rounded-lg shadow p-4 bg-white hover:bg-blue-50 transition cursor-pointer">
+              <Link
+                to={`/country/${country.cca3}`}
+                key={country.cca3}
+                className="block bg-white border rounded shadow hover:shadow-md transition"
+              >
+                <div className="aspect-square flex flex-col justify-center items-center p-3">
                   <img
                     src={country.flags?.png}
-                    alt={`${country.name.common} flag`}
-                    className="w-full h-40 object-cover mb-2 rounded"
+                    alt={country.name.common}
+                    className="h-20 w-auto object-contain mb-2"
                   />
-                  <h2 className="text-lg font-bold">{country.name.common}</h2>
-                  <p>Capital: {country.capital?.[0] || "N/A"}</p>
-                  <p>Region: {country.region}</p>
-                  <p>Population: {country.population.toLocaleString()}</p>
-                  <p>
-                    Languages:{" "}
-                    {country.languages
-                      ? Object.values(country.languages).join(", ")
-                      : "N/A"}
-                  </p>
+                  <span className="text-sm font-medium text-center">
+                    {country.name.common}
+                  </span>
                 </div>
               </Link>
             ))
